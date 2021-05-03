@@ -1,17 +1,21 @@
 {
   "name": "nodejs-ts-template",
   "version": "0.0.1",
-  "description": "Custom NodeJs TypeScript project template.",
+  "description": "A tool used to generate fake Google Form answers.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "Samy Ouyahia",
   "email": "sr.ouyahia@gmail.com",
   "url": "",
   "keywords": [
-    "custom",
-    "nodejs",
-    "template",
-    "typescript"
+    "google",
+    "form",
+    "forms",
+    "answer",
+    "answers",
+    "generator",
+    "random",
+    "faker"
   ],
   "license": "ISC",
   "scripts": {
@@ -31,7 +35,9 @@
     "eslint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src ./spec",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\" \"spec/**/*.{ts,tsx}\"",
-    "prettier:fix": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\" \"spec/**/*.{ts,tsx}\""
+    "prettier:fix": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\" \"spec/**/*.{ts,tsx}\"",
+    "prestart": "npm run build",
+    "start": "node dist/index.js | ./node_modules/.bin/bunyan"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.6",
@@ -55,11 +61,11 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "bunyan": "^1.8.14"
+    "bunyan": "^1.8.15"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/souyahia/nodejs-template.git"
+    "type": "git",
+    "url": "https://github.com/souyahia/gform-data-generator.git"
   },
   "private": false
 }
