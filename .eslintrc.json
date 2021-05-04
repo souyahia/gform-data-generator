@@ -11,5 +11,10 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": ["./tsconfig.eslint.json"]
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/lines-between-class-members": "off"
   }
 }

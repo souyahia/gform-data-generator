@@ -1,0 +1,280 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Locale": {
+      "type": "string",
+      "enum": [
+        "ar",
+        "az",
+        "cz",
+        "de",
+        "de_AT",
+        "de_CH",
+        "en",
+        "en_AU",
+        "en_AU_ocker",
+        "en_BORK",
+        "en_CA",
+        "en_GB",
+        "en_IE",
+        "en_IND",
+        "en_US",
+        "en_ZA",
+        "es",
+        "es_MX",
+        "fa",
+        "fi",
+        "fr",
+        "fr_CA",
+        "fr_CH",
+        "ge",
+        "hr",
+        "hy",
+        "id_ID",
+        "it",
+        "ja",
+        "ko",
+        "nb_NO",
+        "ne",
+        "nl",
+        "nl_BE",
+        "pl",
+        "pt_BR",
+        "pt_PT",
+        "ro",
+        "ru",
+        "sk",
+        "sv",
+        "tr",
+        "uk",
+        "vi",
+        "zh_CN",
+        "zh_TW"
+      ]
+    },
+    "QuestionType": {
+      "type": "string",
+      "enum": [
+        "CHECKBOXES",
+        "CHECKBOX_GRID",
+        "DATE",
+        "DATE_TIME",
+        "DURATION",
+        "FREE_TEXT",
+        "MULTIPLE_CHOICE",
+        "MULTIPLE_CHOICE_GRID",
+        "TIME"
+      ]
+    },
+    "AnswerOptionType": { "type": "string", "enum": [ "FIXED", "OTHER" ] }
+  },
+  "type": "object",
+  "properties": {
+    "title": { "type": "string" },
+    "locale": { "$ref": "#/definitions/Locale" },
+    "dateMin": { "type": "number", "minimum": 0 },
+    "dateMax": { "type": "number", "minimum": 0 },
+    "answerCount": { "type": "number", "minimum": 0 },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "type": { "$ref": "#/definitions/QuestionType" },
+          "required": { "type": "boolean" }
+        },
+        "required": [ "title", "type", "required" ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "required": { "const": false },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "CHECKBOXES",
+                    "DATE",
+                    "DATE_TIME",
+                    "DURATION",
+                    "FREE_TEXT",
+                    "MULTIPLE_CHOICE",
+                    "TIME"
+                  ]
+                }
+              },
+              "required": [ "required", "type" ]
+            },
+            "then": {
+              "properties": {
+                "noAnswerProbability": { "type": "number", "minimum": 0, "maximum": 1 }
+              },
+              "required": [ "noAnswerProbability" ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": { "const": "FREE_TEXT" }
+              },
+              "required": [ "type" ]
+            },
+            "then": {
+              "properties": {
+                "answerModel": { "type": "string" }
+              },
+              "required": [ "answerModel" ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": { "type": "string", "enum": [ "DATE", "DATE_TIME", "DURATION" ] }
+              },
+              "required": [ "type" ]
+            },
+            "then": {
+              "properties": {
+                "min": { "type": "number", "minimum": 0 },
+                "max": { "type": "number", "minimum": 0 }
+              },
+              "required": [ "min", "max" ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": { "const": "TIME" }
+              },
+              "required": [ "type" ]
+            },
+            "then": {
+              "properties": {
+                "min": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$" },
+                "max": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$" }
+              },
+              "required": [ "min", "max" ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": { "type": "string", "enum": [ "MULTIPLE_CHOICE", "CHECKBOXES" ] }
+              },
+              "required": [ "type" ]
+            },
+            "then": {
+              "properties": {
+                "answerOptions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": { "$ref": "#/definitions/AnswerOptionType" },
+                      "weight": { "type": "number", "minimum": 0}
+                    },
+                    "required": [ "type" ],
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "type": { "type": "string", "const": "FIXED" }
+                          },
+                          "required": [ "type" ]
+                        },
+                        "then": {
+                          "properties": {
+                            "value": { "type": "string" }
+                          },
+                          "required": [ "value" ]
+                        },
+                        "else": {
+                          "properties": {
+                            "answerModel": { "type": "string" }
+                          },
+                          "required": [ "answerModel" ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "required": [ "answerOptions" ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": { "type": "string", "enum": [ "MULTIPLE_CHOICE_GRID", "CHECKBOX_GRID" ] }
+              },
+              "required": [ "type" ]
+            },
+            "then": {
+              "properties": {
+                "columns": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "lines": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": { "type": "string" },
+                      "weightGrid": {
+                        "type": "array",
+                        "items": { "type": "number", "minimum": 0 }
+                      }
+                    },
+                    "required": [ "title", "weightGrid" ]
+                  }
+                }
+              },
+              "required": [ "columns", "lines" ],
+              "if": {
+                "properties": {
+                  "required": { "const": false }
+                },
+                "required": [ "required" ]
+              },
+              "then": {
+                "properties": {
+                  "columns": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "lines": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "title": { "type": "string" },
+                        "weightGrid": {
+                          "type": "array",
+                          "items": { "type": "number", "minimum": 0 }
+                        },
+                        "noAnswerProbability": { "type": "number", "minimum": 0, "maximum": 1 }
+                      },
+                      "required": [ "title", "weightGrid", "noAnswerProbability" ]
+                    }
+                  }
+                },
+                "required": [ "columns", "lines" ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "title",
+    "locale",
+    "dateMin",
+    "dateMax",
+    "answerCount",
+    "questions"
+  ]
+}
+
+

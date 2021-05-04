@@ -1,8 +1,9 @@
 {
   "title": "Test Form",
-  "lang": "en",
-  "dateMin": "1609455600000",
-  "dateMax": "1625090400000",
+  "locale": "en",
+  "dateMin": 1609455600000,
+  "dateMax": 1625090400000,
+  "answerCount": 250,
   "questions": [
     {
       "title": "What is your email address ?",
@@ -65,24 +66,34 @@
     }, {
       "title": "What is your birth date ?",
       "type": "DATE",
-      "required": true
+      "required": true,
+      "min": 1609455600000,
+      "max": 1625090400000
     }, {
       "title": "When was the first time you listened to your favorite artist ?",
       "type": "DATE_TIME",
-      "required": true
+      "required": true,
+      "min": 1609455600000,
+      "max": 1625090400000
     }, {
       "title": "When do you usually take your breakfast ?",
       "type": "TIME",
-      "required": true
+      "required": true,
+      "min": "00:00:00",
+      "max": "12:00:00"
     }, {
       "title": "How long does it usually take you to shower ?",
       "type": "DURATION",
       "required": false,
-      "noAnswerProbability": 0.5
+      "noAnswerProbability": 0.5,
+      "min": 60000,
+      "max": 300000
     }, {
       "title": "When do you usually take your breakfast ?",
       "type": "TIME",
-      "required": true
+      "required": true,
+      "min": "05:00:50",
+      "max": "19:30:50"
     }, {
       "title": "What do you like to do during your free time ?",
       "type": "CHECKBOXES",
