@@ -58,8 +58,6 @@
         "CHECKBOXES",
         "CHECKBOX_GRID",
         "DATE",
-        "DATE_TIME",
-        "DURATION",
         "FREE_TEXT",
         "MULTIPLE_CHOICE",
         "MULTIPLE_CHOICE_GRID",
@@ -95,8 +93,6 @@
                   "enum": [
                     "CHECKBOXES",
                     "DATE",
-                    "DATE_TIME",
-                    "DURATION",
                     "FREE_TEXT",
                     "MULTIPLE_CHOICE",
                     "TIME"
@@ -129,16 +125,18 @@
           {
             "if": {
               "properties": {
-                "type": { "type": "string", "enum": [ "DATE", "DATE_TIME", "DURATION" ] }
+                "type": { "type": "string", "const": "DATE" }
               },
               "required": [ "type" ]
             },
             "then": {
               "properties": {
                 "min": { "type": "number", "minimum": 0 },
-                "max": { "type": "number", "minimum": 0 }
+                "max": { "type": "number", "minimum": 0 },
+                "withYear": { "type": "boolean" },
+                "withTime": { "type": "boolean" }
               },
-              "required": [ "min", "max" ]
+              "required": [ "min", "max", "withYear", "withTime" ]
             }
           },
           {
@@ -150,8 +148,8 @@
             },
             "then": {
               "properties": {
-                "min": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$" },
-                "max": { "type": "string", "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$" }
+                "min": { "type": "string", "pattern": "^([0-6][0-9]|7[0-2]):([0-5][0-9]):([0-5][0-9])$" },
+                "max": { "type": "string", "pattern": "^([0-6][0-9]|7[0-2]):([0-5][0-9]):([0-5][0-9])$" }
               },
               "required": [ "min", "max" ]
             }
@@ -171,9 +169,9 @@
                     "type": "object",
                     "properties": {
                       "type": { "$ref": "#/definitions/AnswerOptionType" },
-                      "weight": { "type": "number", "minimum": 0}
+                      "probability": { "type": "number", "minimum": 0, "maximum": 1 }
                     },
-                    "required": [ "type" ],
+                    "required": [ "type", "probability" ],
                     "allOf": [
                       {
                         "if": {
@@ -221,12 +219,12 @@
                     "type": "object",
                     "properties": {
                       "title": { "type": "string" },
-                      "weightGrid": {
+                      "probabilityGrid": {
                         "type": "array",
-                        "items": { "type": "number", "minimum": 0 }
+                        "items": { "type": "number", "minimum": 0, "maximum": 1 }
                       }
                     },
-                    "required": [ "title", "weightGrid" ]
+                    "required": [ "title", "probabilityGrid" ]
                   }
                 }
               },
@@ -249,13 +247,13 @@
                       "type": "object",
                       "properties": {
                         "title": { "type": "string" },
-                        "weightGrid": {
+                        "probabilityGrid": {
                           "type": "array",
                           "items": { "type": "number", "minimum": 0 }
                         },
                         "noAnswerProbability": { "type": "number", "minimum": 0, "maximum": 1 }
                       },
-                      "required": [ "title", "weightGrid", "noAnswerProbability" ]
+                      "required": [ "title", "probabilityGrid", "noAnswerProbability" ]
                     }
                   }
                 },

@@ -25,7 +25,7 @@
     "test": "jest",
     "pretest:coverage": "npm run build",
     "test:coverage": "jest --coverage",
-    "clean": "rimraf dist && mkdirp dist",
+    "clean": "rimraf dist && rimraf output && mkdirp dist && mkdirp output",
     "lint": "npm run eslint && npm run prettier",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
     "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src ./spec",

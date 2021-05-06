@@ -3,7 +3,7 @@
   "locale": "en",
   "dateMin": 1609455600000,
   "dateMax": 1625090400000,
-  "answerCount": 250,
+  "answerCount": 3,
   "questions": [
     {
       "title": "What is your email address ?",
@@ -28,19 +28,19 @@
         {
           "type": "FIXED",
           "value": "Hard Rock",
-          "weight": 0.6
+          "probability": 0.6
         }, {
           "type": "FIXED",
           "value": "Metal",
-          "weight": 0.2
+          "probability": 0.2
         }, {
           "type": "FIXED",
           "value": "Rap",
-          "weight": 0.1
+          "probability": 0.1
         }, {
           "type": "OTHER",
           "answerModel": "{{music.genre}}",
-          "weight": 0.1
+          "probability": 0.1
         }
       ]
     }, {
@@ -52,27 +52,31 @@
         {
           "type": "FIXED",
           "value": "Male",
-          "weight": 0.4
+          "probability": 0.4
         }, {
           "type": "FIXED",
           "value": "Female",
-          "weight": 0.3
+          "probability": 0.3
         }, {
           "type": "OTHER",
           "answerModel": "{{name.gender}}",
-          "weight": 0.2
+          "probability": 0.3
         }
       ]
     }, {
       "title": "What is your birth date ?",
       "type": "DATE",
       "required": true,
+      "withTime": false,
+      "withYear": true,
       "min": 1609455600000,
       "max": 1625090400000
     }, {
       "title": "When was the first time you listened to your favorite artist ?",
-      "type": "DATE_TIME",
+      "type": "DATE",
       "required": true,
+      "withTime": true,
+      "withYear": true,
       "min": 1609455600000,
       "max": 1625090400000
     }, {
@@ -83,11 +87,11 @@
       "max": "12:00:00"
     }, {
       "title": "How long does it usually take you to shower ?",
-      "type": "DURATION",
+      "type": "TIME",
       "required": false,
       "noAnswerProbability": 0.5,
-      "min": 60000,
-      "max": 300000
+      "min": "20:00:00",
+      "max": "50:00:00"
     }, {
       "title": "When do you usually take your breakfast ?",
       "type": "TIME",
@@ -102,15 +106,15 @@
         {
           "type": "FIXED",
           "value": "Read books",
-          "weight": 0.5
+          "probability": 0.5
         }, {
           "type": "FIXED",
           "value": "Watch movies",
-          "weight": 0.3
+          "probability": 0.3
         }, {
           "type": "FIXED",
           "value": "Practice sports",
-          "weight": 0.1
+          "probability": 0.2
         }
       ]
     }, {
@@ -121,19 +125,19 @@
         {
           "title": "00h - 8h",
           "noAnswerProbability": 0.1,
-          "weightGrid": [0.1, 0.2, 0.1, 0, 0.4]
+          "probabilityGrid": [0.3, 0.2, 0.1, 0, 0.4]
         }, {
           "title": "8h - 12h",
           "noAnswerProbability": 0,
-          "weightGrid": [0.5, 0.4, 0, 0, 0.1]
+          "probabilityGrid": [0.5, 0.4, 0, 0, 0.1]
         }, {
           "title": "12h - 18h",
           "noAnswerProbability": 0.5,
-          "weightGrid": [0, 0, 0.3, 0, 0.2]
+          "probabilityGrid": [0, 0, 0.5, 0, 0.5]
         }, {
           "title": "18h - 00h",
           "noAnswerProbability": 0,
-          "weightGrid": [0.3, 0.1, 0.2, 0.2, 0.2]
+          "probabilityGrid": [0.3, 0.1, 0.2, 0.2, 0.2]
         }
       ],
       "columns": [
@@ -150,10 +154,10 @@
       "lines": [
         {
           "title": "Professional Life",
-          "weightGrid": [0.4, 0.2, 0.1, 3]
+          "probabilityGrid": [0.4, 0.2, 0.1, 0.3]
         }, {
           "title": "Personal Life",
-          "weightGrid": [0.2, 0.2, 0.5, 0]
+          "probabilityGrid": [0.2, 0.2, 0.5, 0.1]
         }
       ],
       "columns": [

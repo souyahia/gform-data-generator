@@ -1,4 +1,9 @@
-import { Locale } from './locale';
+import { Locale } from '../utils';
+
+export interface FormWithFileName {
+  fileName: string;
+  form: Form;
+}
 
 export interface Form {
   title: string;
@@ -15,16 +20,7 @@ export interface Question {
   required: boolean;
 }
 
-export type QuestionType =
-  | 'FREE_TEXT'
-  | 'MULTIPLE_CHOICE'
-  | 'DATE'
-  | 'DATE_TIME'
-  | 'TIME'
-  | 'DURATION'
-  | 'CHECKBOXES'
-  | 'MULTIPLE_CHOICE_GRID'
-  | 'CHECKBOX_GRID';
+export type QuestionType = 'FREE_TEXT' | 'MULTIPLE_CHOICE' | 'DATE' | 'TIME' | 'CHECKBOXES' | 'MULTIPLE_CHOICE_GRID' | 'CHECKBOX_GRID';
 
 export interface FreeTextQuestion extends Question {
   type: 'FREE_TEXT';
@@ -32,10 +28,12 @@ export interface FreeTextQuestion extends Question {
   noAnswerProbability?: number;
 }
 
-export interface DateTimeQuestion extends Question {
-  type: 'DATE' | 'DATE_TIME' | 'DURATION';
+export interface DateQuestion extends Question {
+  type: 'DATE';
   min: number;
   max: number;
+  withYear: boolean;
+  withTime: boolean;
   noAnswerProbability?: number;
 }
 
@@ -49,6 +47,7 @@ export interface TimeQuestion extends Question {
 export interface ChoiceQuestion extends Question {
   type: 'MULTIPLE_CHOICE' | 'CHECKBOXES';
   answerOptions: AnswerOption[];
+  noAnswerProbability?: number;
 }
 
 export interface GridQuestion extends Question {
@@ -59,7 +58,7 @@ export interface GridQuestion extends Question {
 
 export interface AnswerOption {
   type: AnswerOptionType;
-  weight: number;
+  probability: number;
 }
 
 export type AnswerOptionType = 'FIXED' | 'OTHER';
@@ -76,6 +75,6 @@ export interface AnswerOptionOther extends AnswerOption {
 
 export interface GridLine {
   title: string;
-  weightGrid: number[];
+  probabilityGrid: number[];
   noAnswerProbability?: number;
 }
