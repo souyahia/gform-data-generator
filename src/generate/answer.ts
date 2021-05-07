@@ -20,6 +20,7 @@ export function answerForm(form: Form): AnswerdForm {
   for (let i = 0; i < form.answerCount; i++) {
     answeredForm.answers.push(generateFormAnswer(form));
   }
+  answeredForm.answers.sort((a, b) => a.timestamp - b.timestamp);
   return answeredForm;
 }
 

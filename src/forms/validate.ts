@@ -51,32 +51,11 @@ function validateFormWithCustomRules(unknownFormWithFileName: UnknownFormWithFil
     });
 
   form.questions
-    .filter((question) => question.type === 'MULTIPLE_CHOICE' || question.type === 'CHECKBOXES')
-    .map((question) => question as ChoiceQuestion)
-    .forEach((question) => {
-      if (question.answerOptions.map((answerOption) => answerOption.probability).reduce((acc, p) => acc + p, 0) !== 1) {
-        throw new Error(getErrMsg(fileName, 'The total sum of answer options probabilities should equal 1.'));
-      }
-    });
-
-  form.questions
     .filter((question) => question.type === 'MULTIPLE_CHOICE_GRID' || question.type === 'CHECKBOX_GRID')
     .map((question) => question as GridQuestion)
     .forEach((question) => {
       if (question.lines.some((line) => line.probabilityGrid.length !== question.columns.length)) {
         throw new Error(getErrMsg(fileName, 'The weight grid of a line should have the same length as the number of columns of the question.'));
-      }
-    });
-
-  form.questions
-    .filter((question) => question.type === 'MULTIPLE_CHOICE_GRID' || question.type === 'CHECKBOX_GRID')
-    .map((question) => question as GridQuestion)
-    .map((question) => question.lines)
-    .reduce((acc, lines) => acc.concat(lines), [])
-    .map((line) => line.probabilityGrid)
-    .forEach((probabilities) => {
-      if (probabilities.reduce((acc, p) => acc + p, 0) !== 1) {
-        throw new Error(getErrMsg(fileName, 'The total sum of answer options probabilities in a probability grid should equal 1.'));
       }
     });
 
