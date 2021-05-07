@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testMatch: ['**/spec/**/*.spec.ts'],
+  testMatch: ['**/test/**/*.test.ts'],
   coverageDirectory: './coverage',
   coverageReporters: ['lcov'],
 };
