@@ -69,7 +69,7 @@ export interface AnswerOptionFixed extends AnswerOption {
 }
 
 export interface AnswerOptionOther extends AnswerOption {
-  type: 'FIXED';
+  type: 'OTHER';
   answerModel: string;
 }
 
