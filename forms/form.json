@@ -1,0 +1,171 @@
+{
+  "title": "Example Form",
+  "locale": "en",
+  "dateMin": 1609455600000,
+  "dateMax": 1625090400000,
+  "answerCount": 150,
+  "questions": [
+    {
+      "title": "What is your email address ?",
+      "type": "FREE_TEXT",
+      "required": true,
+      "answerModel": "{{internet.email}}"
+    }, {
+      "title": "What is your first name ?",
+      "type": "FREE_TEXT",
+      "required": true,
+      "answerModel": "{{name.firstName}}"
+    }, {
+      "title": "Describe yourself in a few words",
+      "type": "FREE_TEXT",
+      "required": true,
+      "answerModel": "{{name.jobTitle}} at {{name.jobArea}}"
+    }, {
+      "title": "Which type of music do you prefer ?",
+      "type": "MULTIPLE_CHOICE",
+      "required": true,
+      "answerOptions": [
+        {
+          "type": "FIXED",
+          "value": "Hard Rock",
+          "probability": 0.6
+        }, {
+          "type": "FIXED",
+          "value": "Metal",
+          "probability": 0.2
+        }, {
+          "type": "FIXED",
+          "value": "Rap",
+          "probability": 0.1
+        }, {
+          "type": "OTHER",
+          "answerModel": "{{music.genre}}",
+          "probability": 0.1
+        }
+      ]
+    }, {
+      "title": "What is your gender ?",
+      "type": "MULTIPLE_CHOICE",
+      "required": false,
+      "noAnswerProbability": 0.1,
+      "answerOptions": [
+        {
+          "type": "FIXED",
+          "value": "Male",
+          "probability": 0.4
+        }, {
+          "type": "FIXED",
+          "value": "Female",
+          "probability": 0.3
+        }, {
+          "type": "OTHER",
+          "answerModel": "{{name.gender}}",
+          "probability": 0.3
+        }
+      ]
+    }, {
+      "title": "What is your birth date ?",
+      "type": "DATE",
+      "required": true,
+      "withTime": false,
+      "withYear": true,
+      "min": 1609455600000,
+      "max": 1625090400000
+    }, {
+      "title": "When was the first time you listened to your favorite artist ?",
+      "type": "DATE",
+      "required": true,
+      "withTime": true,
+      "withYear": true,
+      "min": 1609455600000,
+      "max": 1625090400000
+    }, {
+      "title": "When do you usually take your breakfast ?",
+      "type": "TIME",
+      "required": true,
+      "min": "00:00:00",
+      "max": "12:00:00"
+    }, {
+      "title": "How long does it usually take you to shower ?",
+      "type": "TIME",
+      "required": false,
+      "noAnswerProbability": 0.5,
+      "min": "20:00:00",
+      "max": "50:00:00"
+    }, {
+      "title": "When do you usually take your breakfast ?",
+      "type": "TIME",
+      "required": true,
+      "min": "05:00:50",
+      "max": "19:30:50"
+    }, {
+      "title": "What do you like to do during your free time ?",
+      "type": "CHECKBOXES",
+      "required": true,
+      "answerOptions": [
+        {
+          "type": "FIXED",
+          "value": "Read books",
+          "probability": 0.5
+        }, {
+          "type": "FIXED",
+          "value": "Watch movies",
+          "probability": 0.3
+        }, {
+          "type": "FIXED",
+          "value": "Practice sports",
+          "probability": 0.2
+        }
+      ]
+    }, {
+      "title": "What is your favorite activity throughout the day ?",
+      "type": "MULTIPLE_CHOICE_GRID",
+      "required": false,
+      "lines": [
+        {
+          "title": "00h - 8h",
+          "noAnswerProbability": 0.1,
+          "probabilityGrid": [0.3, 0.2, 0.1, 0, 0.4]
+        }, {
+          "title": "8h - 12h",
+          "noAnswerProbability": 0,
+          "probabilityGrid": [0.5, 0.4, 0, 0, 0.1]
+        }, {
+          "title": "12h - 18h",
+          "noAnswerProbability": 0.5,
+          "probabilityGrid": [0, 0, 0.5, 0, 0.5]
+        }, {
+          "title": "18h - 00h",
+          "noAnswerProbability": 0,
+          "probabilityGrid": [0.3, 0.1, 0.2, 0.2, 0.2]
+        }
+      ],
+      "columns": [
+        "Sports",
+        "Videogames",
+        "Work",
+        "Walking",
+        "Reading Books"
+      ]
+    }, {
+      "title": "What are your expectations ?",
+      "type": "CHECKBOX_GRID",
+      "required": true,
+      "lines": [
+        {
+          "title": "Professional Life",
+          "probabilityGrid": [0.4, 0.2, 0.1, 0.3]
+        }, {
+          "title": "Personal Life",
+          "probabilityGrid": [0.2, 0.2, 0.5, 0.1]
+        }
+      ],
+      "columns": [
+        "Learning new skills",
+        "Meeting new people",
+        "Have fun with my friends",
+        "Discover new places"
+      ]
+    }
+  ]
+}

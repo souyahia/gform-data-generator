@@ -77,8 +77,10 @@ function validateFormWithCustomRules(unknownFormWithFileName: UnknownFormWithFil
 
 function validateAnswerModel(answerModel: string, fileName: string): void {
   const matchArray = answerModel.match(ANSWER_MODEL_INTERPOLATION_REGEX);
-  matchArray
-    .map((interp) => {
+  if (!matchArray) {
+    throw new Error(`Invalid answerModel in ${fileName} : answerModel must contain at least one Faker.js interpolation key. Used the FIXED answer option type for fixed values.`);
+  }
+  matchArray.map((interp) => {
       return {
         interp,
         keys: interp
